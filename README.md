@@ -1,5 +1,5 @@
-CoffeeScript/AngularJS/Sweet.js Annotation
-==========================================
+AngularJS DI Annotation with Sweet.js
+=====================================
 
 The Problem
 -----------
@@ -73,7 +73,7 @@ macro di {
 }
 ```
 
-The macro will convert code like this:
+To use, simply wrap any function declaration that needs to work with the injector in `di()`. The macro will convert code like this:
 
 ```javascript
 app.controller('SomeController', di(function($scope, $http, $injector) {
@@ -94,7 +94,18 @@ app.controller('SomeController', [
 ]);
 ```
 
+You can also use the macro with function references; simply wrap the function *declaration* (not the invocation):
+
+```javascript
+var fn = di(function($rootScope) {
+  // ...
+});
+$injector.invoke(fn);
+```
+
 The use is similar to ngmin--run this on your unminified code before you minify it. There are plugins on npm for Grunt, Gulp, and Browserify, and the Sweet.js API is super easy to use.
+
+While the process is not as automatic as something like ngmin, as you do need to remember to use the `di` macro, it *will* automatically keep the array up to date as the parameters change and is not subject to most of the drawbacks of an AST detection system like ngmin.
 
 Demo
 ----
