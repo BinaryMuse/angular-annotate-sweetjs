@@ -1,0 +1,169 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Edit Sweet.js</title>
+  <script src='//cdnjs.cloudflare.com/ajax/libs/coffee-script/1.7.1/coffee-script.min.js'></script>
+  <script src="scripts/jquery.js"></script>
+  <script src="scripts/codemirror.js"></script>
+  <script src="scripts/vim.js"></script>
+  <script src="scripts/emacs.js"></script>
+  <link rel="stylesheet" href="codemirror.css">
+  <link rel="stylesheet" href="solarized.css">
+  <script src="mode/javascript/javascript.js"></script>
+  <script src="mode/coffeescript/coffeescript.js"></script>
+
+  <link href='http://fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
+  <script data-main="scripts/editor" src="scripts/require.js"></script>
+
+ <style type="text/css">
+ body {
+  font-family: Droid Sans, Arial, sans-serif;
+  line-height: 1.5;
+  /*max-width: 64.3em;*/
+}
+  .CodeMirror {
+    font-size: 14px;
+    height: 100%;
+  }
+
+  #options {
+    position: absolute;
+    font-size: 14px;
+    font-family: Droid Sans, Arial, sans-serif;
+    line-height: 1.5;
+    top: 20px;
+    right: 40px;
+    z-index: 1;
+  }
+
+  #header {
+    position: absolute;
+    top: 0;
+    right: 50%;
+    bottom: 0;
+    left: 0;
+
+    font-size: 250%;
+    text-transform: uppercase;
+    color: rgb(68, 68, 68);
+    font-family: 'Lato',Helvetica Neue,Helvetica,Arial,sans-serif;
+    font-weight: 100;
+    padding-left: 20px;
+  }
+
+  #controls {
+    position: absolute;;
+    top: 20;
+    right: 0;
+    bottom: 10;
+    left: 50%;
+
+  }
+
+  #errors {
+    color: red;
+    position: absolute;
+    background-color: white;
+    /*right: 10;*/
+    z-index: 10;
+    bottom: 10;
+    /*left: 50%;*/
+    /*padding-top: 20px;*/
+    /*padding-left: 55px;*/
+    padding: 10px;
+  }
+
+  #edit-box {
+    position: absolute;
+    top: 60px;
+    right: 50%;
+    bottom: 0;
+    left: 0;
+  }
+  #output-box {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    bottom: 0;
+    left: 50%;
+  }
+
+  #repo-link {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+
+</style>
+</head>
+<body>
+
+<div id='header'>
+   sweeten your <i>coffeescript</i>
+</div>
+
+<div id='repo-link'>
+  <a href='https://github.com/BinaryMuse/angular-annotate-sweetjs'>View GitHub Repo</a>
+</div>
+
+<pre id="errors">
+
+</pre>
+
+<div id='edit-box'>
+<textarea id="editor">
+# Wrap functions with `di()` to create $inject-style arrays.
+app.controller "SomeController", di ($scope, $http) ->
+  $http.get('/some.json');
+
+# Function references can be used--just use `di()` when
+# defining the function (instead of at the call site).
+runBlock = di ($injector, $rootScope) ->
+  $injector.invoke di ($controller) ->
+    $controller('SomeController', $scope: $rootScope.$new())
+app.run runBlock
+
+# `di()` can be used anywhere; it doesn't depend on "passes"...
+app.config di ($routeProvider) ->
+  $routeProvider
+    .when '/',
+      templateUrl: 'root.html'
+      resolve:
+        currentUser: di (userService) -> userService.getCurrentUser()
+
+# ...or detection of Angular modules.
+ds.module('desk.agent.case')
+.run di (
+  $q
+  DsEvent
+  DsI18n
+) ->
+  # ...
+
+ds.module('ds.shortcuts')
+.config di (DsConfig, $provide)->
+
+  # ...
+
+  $set: di ($dsModule) ->
+    # ...
+
+  $get: di ($dsModule, _$injector_, _$log_) ->
+    # ...
+
+  $getScope: di ($dsModule, $scope) ->
+    # ...
+
+.config di (DsShortcutProvider) ->
+  DsShortcutProvider.$$setShortcutFilter di ($state, $namespace) ->
+    # ...
+</textarea>
+</div>
+
+<div id='output-box'>
+<textarea id="output"></textarea>
+</div>
+
+
+</body>
+</html>
