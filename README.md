@@ -1,6 +1,11 @@
 AngularJS DI Annotation with Sweet.js
 =====================================
 
+Annotating AngularJS DI-able functions with Sweet.js:
+
+* [JavaScript Demo](http://sweetjs.org/browser/editor.html#macro%2520di%2520%257B%250A%2520%2520case%2520%257B%2520_%2520%28%2520function%2520%28%24params%3Aident%2520%28%2C%29%2520...%29%2520%257B%2520%24body%2520...%257D%2520%29%2520%257D%2520%3D%253E%2520%257B%250A%2520%2520%2520%2520var%2520tokens%2520%3D%2520%23%257B%24params...%257D.map%28function%28t%29%2520%257B%2520return%2520makeValue%28t.token.value%2C%2520%23%257Bhere%257D%29%2520%257D%29%3B%250A%2520%2520%2520%2520letstx%2520%24annotations...%2520%3D%2520tokens%3B%250A%2520%2520%2520%2520return%2520%23%257B%250A%2520%2520%2520%2520%2520%2520%255B%2520%24annotations%2520%28%2C%29%2520...%2520%2C%2520function%2520%28%24params%2520...%29%2520%257B%250A%2520%2520%2520%2520%2520%2520%2520%2520%24body%2520...%250A%2520%2520%2520%2520%2520%2520%257D%2520%255D%250A%2520%2520%2520%2520%257D%250A%2520%2520%257D%250A%257D%250A%250Aapp.controller%28%27SomeController%27%2C%2520di%28function%28%24scope%2C%2520%24http%2C%2520%24injector%29%2520%257B%250A%2520%2520%24http.get%28%27...%27%29%3B%250A%257D%29%29%3B)
+* [CoffeeScript Demo](http://binarymuse.github.io/angular-annotate-sweetjs/index.htm)
+
 The Problem
 -----------
 
@@ -12,7 +17,7 @@ app.controller('SomeController', function($scope, $http) {
 });
 ```
 
-Instances of `SomeController` will automatically passed `$scope` and `$http` parameters because those are the services named in the function. The problem comes after minifying--the code above might be turned into somthing like
+Instances of `SomeController` will automatically be passed instances of the `$scope` and `$http` services because those are the services named in the parameter list. The problem comes after minifying--the code above might be turned into something like
 
 ```javascript
 a.controller('SomeController', function(b, c) {
