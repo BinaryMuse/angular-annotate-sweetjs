@@ -115,7 +115,7 @@ var fn = ['$rootScope', function ($rootScope) {
 $injector.invoke(fn);
 ```
 
-The use case is similar to ngmin—run this on your unminified code before you minify it. There are plugins on npm for Grunt, Gulp, and Browserify, and the Sweet.js API is super easy to use.
+The use case is similar to ngmin—run this on your unminified code before you minify it. There are Sweet.js plugins on npm for Grunt, Gulp, and Browserify, and the Sweet.js API is super easy to use, so it shouldn't be too hard to run in other contexts.
 
 While the process is not as automatic as something like ngmin, as you do need to remember to use the `di` macro, it *will* automatically keep the array up to date as the parameters change and is not subject to most of the drawbacks of an AST detection system like ngmin.
 
